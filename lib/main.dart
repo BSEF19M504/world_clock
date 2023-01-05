@@ -1,16 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:world_clock/pages/home.dart';
 
 void main() {
   runApp(const MaterialApp(
-    home: ClockApp(),
+    home: Home(),
   ));
-}
-
-class ClockApp extends StatelessWidget {
-  const ClockApp({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
-  }
 }
