@@ -47,7 +47,7 @@ class _HomeState extends State<Home> {
               ),
               Text(data["time"],
                 style: const TextStyle(
-                  fontSize: 40
+                  fontSize: 40,
                 ),
               )
             ],
