@@ -16,7 +16,8 @@ class _HomeState extends State<Home> {
     data = ModalRoute.of(context)!.settings.arguments as Map;
     print(data);
     String bgImage = data["isDayTime"] ? "day.png" : "night.png";
-    Color color = data["isDayTime"] ? Colors.black87 : Colors.white70;
+    String imageUrl = data["flag"];
+    Color color = Colors.white70;
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
@@ -44,6 +45,12 @@ class _HomeState extends State<Home> {
                       color: color,
                     ),
                   ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Image.network(
+                  imageUrl,
                 ),
                 const SizedBox(
                   height: 20,

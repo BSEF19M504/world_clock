@@ -13,7 +13,7 @@ class _LoadingState extends State<Loading> {
 
   late NavigatorState navigator = NavigatorState();
   void setupWorldTime() async{
-    WorldTime instance = WorldTime(location: "Karachi", flag: "pakistan.png", url: "Asia/Karachi");
+    WorldTime instance = WorldTime(location: "Karachi", flag: "https://www.worldometers.info/img/flags/small/tn_pk-flag.gif", url: "Asia/Karachi");
     while(true){
       await instance.getTime();
       if (instance.time != "Could not get time data") {
