@@ -380,7 +380,26 @@ class _ChooseLocationState extends State<ChooseLocation> {
     WorldTime(location: "Wake, United States", flag: "US", url: "Pacific/Wake"),
     WorldTime(location: "Wallis, Wallis and Futuna", flag: "WF", url: "Pacific/Wallis")
   ];
-  
+
+  late NavigatorState navigator = NavigatorState();
+
+  void updateTime(index) async {
+    WorldTime instance = locations[index];
+    await instance.getTime();
+    navigator.pop({
+      'location': instance.location,
+      'flag': "https://countryflagsapi.com/png/${instance.flag}",
+      'time': instance.time,
+      'isDayTime': instance.isDayTime
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    navigator = Navigator.of(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -398,9 +417,15 @@ class _ChooseLocationState extends State<ChooseLocation> {
             padding: const EdgeInsets.symmetric(vertical: 1, horizontal: 4),
             child: Card(
               child: ListTile(
-                leading: Image.network("https://flagsapi.com/${locations[index].flag}/flat/64.png"),
+                leading: CircleAvatar(
+                  radius: 25,
+                  backgroundImage: NetworkImage(
+                    //"https://flagsapi.com/${locations[index].flag}/flat/64.png
+                    "https://countryflagsapi.com/png/${locations[index].flag}"
+                  ),
+                ),
                 onTap: () {
-                  print("flag ${locations[index].flag}");
+                  updateTime(index);
                 },
                 title: Text(locations[index].location),
               ),
