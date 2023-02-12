@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_image/flutter_image.dart';
+
+import '../services/world_time.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -13,8 +16,15 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    data = data.isEmpty ? ModalRoute.of(context)!.settings.arguments as Map: data;
-    print(data);
+    if(data.isEmpty) {
+      WorldTime instance = WorldTime(location: "Karachi, Pakistan", flag: "https://countryflagsapi.com/png/PK", utc: "+05:00");
+      data = {
+        "location": instance.location,
+        "flag": instance.flag,
+        "time": instance.time,
+        "isDayTime": instance.isDayTime
+      };
+    }
     String bgImage = data["isDayTime"] ? "day.png" : "night.png";
     String imageUrl = data["flag"];
     Color color = Colors.white70;
@@ -57,8 +67,8 @@ class _HomeState extends State<Home> {
                 const SizedBox(
                   height: 20,
                 ),
-                Image.network(
-                  imageUrl,
+                Image(
+                  image: NetworkImageWithRetry(imageUrl),
                   width: 80,
                 ),
                 const SizedBox(
